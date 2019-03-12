@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="no_data_tv_top_margin">20dp</dimen>
+    <dimen name="details_tv_top_margin">30dp</dimen>
+    <dimen name="details_tv_text_size">15sp</dimen>
+    <dimen name="recyclerview_img_height">200dp</dimen>
+</resources>
