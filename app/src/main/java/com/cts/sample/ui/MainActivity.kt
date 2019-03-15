@@ -14,6 +14,7 @@ import com.cts.sample.model.DataModel
 import com.cts.sample.viewmodel.HeroViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: HeroesAdapter
@@ -36,17 +37,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBinding(){
         binding.viewModel = model
-        callApi(model)
-        observeViewModel(model)
+        callApi()
+        observeViewModel()
     }
 
-    fun callApi(model: HeroViewModel) {
+    fun callApi() {
         model.fetchHeros()
     }
 
-    private fun observeViewModel(model: HeroViewModel) {
+    private fun observeViewModel() {
         model.getListObservable()?.observe(this, Observer {
-            if(it?.heroList != null){
+            if(it!!.heroList != null){
                 adapter = HeroesAdapter(this@MainActivity, it) { hero : DataModel -> recyclerviewItemClicked(hero) }
                 recyclerview!!.adapter = adapter
                 model.isLoading.set(false)
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun recyclerviewItemClicked(hero : DataModel) {
         val intent = Intent(this, HeroDetailsActivity::class.java)
-        intent.putExtra("hero", hero)
+        intent.putExtra(getString(R.string.key_intent_data), hero)
         this.startActivity(intent)
     }
 }

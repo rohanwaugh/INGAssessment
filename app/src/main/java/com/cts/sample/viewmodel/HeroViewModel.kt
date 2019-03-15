@@ -1,15 +1,12 @@
 package com.cts.sample.viewmodel
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
-import android.util.Log
+import com.cts.sample.di.AppController
 import com.cts.sample.model.DataRepoModel
 import com.cts.sample.network.DataRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import javax.inject.Inject
 
 
 class HeroViewModel : ViewModel() {
@@ -21,15 +18,15 @@ class HeroViewModel : ViewModel() {
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
-    var repository: DataRepository? = null
 
-    init {
-        repository = DataRepository()
-    }
+    @Inject
+    lateinit var repository: DataRepository
+
 
     fun fetchHeros() {
         isLoading.set(true)
-        setListObservable(repository!!.getHeros()!!)
+        AppController.Companion.instance.getApplicationComponent()!!.inject(this)
+        setListObservable(repository.getHeros()!!)
     }
 
     private fun setListObservable(heroList: MutableLiveData<DataRepoModel>) {
@@ -40,10 +37,6 @@ class HeroViewModel : ViewModel() {
         return heroList
     }
 
-
-    override fun onCleared() {
-        super.onCleared()
-    }
 
     fun onRefresh() {
         fetchHeros()
