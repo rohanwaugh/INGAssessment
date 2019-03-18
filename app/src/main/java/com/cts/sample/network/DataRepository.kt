@@ -17,7 +17,7 @@ class DataRepository {
     lateinit var webService: API
 
     init {
-        AppController.Companion.instance.getApplicationComponent()!!.inject(this)
+        AppController.instance.getApplicationComponent()!!.inject(this)
     }
 
     fun getHeros(): MutableLiveData<DataRepoModel>? {
