@@ -14,7 +14,7 @@ class HeroViewModel : ViewModel() {
     val tag : String = HeroViewModel::class.java.simpleName
 
     //this is the data that we will fetch asynchronously
-    var heroList: MutableLiveData<DataRepoModel>? = null
+    lateinit var heroList: MutableLiveData<DataRepoModel>
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
@@ -25,7 +25,7 @@ class HeroViewModel : ViewModel() {
 
     fun fetchHeros() {
         isLoading.set(true)
-        AppController.Companion.instance.getApplicationComponent()!!.inject(this)
+        AppController.instance.getApplicationComponent()!!.inject(this)
         setListObservable(repository.getHeros()!!)
     }
 
@@ -36,7 +36,6 @@ class HeroViewModel : ViewModel() {
     fun getListObservable(): MutableLiveData<DataRepoModel>? {
         return heroList
     }
-
 
     fun onRefresh() {
         fetchHeros()
