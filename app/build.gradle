@@ -28,6 +28,9 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -43,9 +46,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
     implementation 'com.android.support.test.espresso:espresso-idling-resource:3.0.2'
 
-    testImplementation 'org.mockito:mockito-core:2.7.22'
-    testImplementation 'org.mockito:mockito-inline:2.7.22'
-    androidTestImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'org.mockito:mockito-core:2.12.0'
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
+    androidTestImplementation 'android.arch.core:core-testing:1.1.1'
 
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
@@ -53,15 +56,15 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
-    implementation 'com.github.bumptech.glide:glide:4.3.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
-    implementation "android.arch.lifecycle:extensions:1.1.0"
-    implementation "android.arch.lifecycle:viewmodel:1.1.0"
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.google.dagger:dagger:2.11'
-    kapt 'com.google.dagger:dagger-compiler:2.11'
+    implementation 'com.google.dagger:dagger:2.21'
+    kapt 'com.google.dagger:dagger-compiler:2.21'
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.13.1'
