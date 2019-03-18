@@ -8,7 +8,6 @@ object WebAccess {
     private val tag : String = WebAccess::class.java.simpleName
 
     val heroAPI: API by lazy {
-        Log.i("XXX", "Creating retrofit client")
         val retrofit = Retrofit.Builder()
             .baseUrl(API.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
