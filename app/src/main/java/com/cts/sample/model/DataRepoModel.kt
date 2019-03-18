@@ -5,7 +5,7 @@ class DataRepoModel {
     var heroList: List<DataModel>? = null
     lateinit var throwable: Throwable
 
-    constructor(heroList: List<DataModel>) {
+    constructor(heroList: List<DataModel>?) {
         this.heroList = heroList
     }
 
