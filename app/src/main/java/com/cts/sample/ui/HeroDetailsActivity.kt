@@ -15,12 +15,11 @@ class HeroDetailsActivity : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
 
-        bundle.apply {
-            val model:DataModel? = this!!.getParcelable("hero")
-            heroRealName.text = model?.realname
-            heroTeam.text = model?.team
-            firstAppreance.text = model?.firstappearance
-            createdBy.text = model?.createdby
+        bundle?.getParcelable<DataModel>("hero")?.apply {
+            heroRealName.text = this.realname
+            heroTeam.text = this.team
+            firstAppreance.text = this.firstappearance
+            createdBy.text = this.createdby
         }
 
     }

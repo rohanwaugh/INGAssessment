@@ -13,7 +13,7 @@ class HeroViewModel : ViewModel() {
 
     val tag : String = HeroViewModel::class.java.simpleName
 
-    lateinit var heroList: MutableLiveData<DataRepoModel>
+    private lateinit var heroList: MutableLiveData<DataRepoModel>
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
