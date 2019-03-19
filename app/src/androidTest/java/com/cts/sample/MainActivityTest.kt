@@ -15,31 +15,32 @@ import org.junit.Test
 class MainActivityTest{
 
     // This activityRule is used to launch the activity under test(In this case it is MainActivity)
-
     @Rule
     @JvmField
     var activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
-
+    /* This test method checks the number of elements in RecyclerView. */
     @Test
     fun countHerosWithViewAssertion() {
         onView(withId(R.id.recyclerview))
             .check(hasItemCount(5))
     }
 
-
+    /* This test method checks if RecyclerView is displayed or not. */
     @Test
     fun ensureRecyclerViewIsPresent() {
         onView(withId(R.id.recyclerview))
             .check(matches(isDisplayed()))
     }
 
+    /* This test method checks if RecyclerView is scrolling or not. */
     @Test
     fun ensureRecyclerViewIsScrolling() {
         onView(withId(R.id.recyclerview))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
     }
 
+    /* This test method checks if Error textView is displayed or not. */
     @Test
     fun checkIfErrorIsPresent() {
         onView(withId(R.id.tv_no_data))
