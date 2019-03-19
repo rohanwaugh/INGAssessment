@@ -14,7 +14,7 @@ import com.cts.sample.model.DataModel
 import com.cts.sample.viewmodel.HeroViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+/* Main Activity class */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: HeroesAdapter
@@ -35,16 +35,19 @@ class MainActivity : AppCompatActivity() {
         initBinding()
     }
 
+    /* This function initialize the binding. */
     private fun initBinding(){
         binding.viewModel = model
         callApi()
         observeViewModel()
     }
 
+    /* This function calls ViewModel fetchHeros method to get the data for RecyclerView. */
     fun callApi() {
         model.fetchHeros()
     }
 
+    /* This function observe LiveData object and update the RecyclerView Adapter with the data. */
     private fun observeViewModel() {
         model.getListObservable()?.observe(this, Observer {
             if(it!!.heroList != null){
@@ -61,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /* This function handles RecyclerView Item click and launch new activity with details. */
     private fun recyclerviewItemClicked(hero : DataModel) {
         val intent = Intent(this, HeroDetailsActivity::class.java)
         intent.putExtra(getString(R.string.key_intent_data), hero)

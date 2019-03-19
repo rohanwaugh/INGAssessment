@@ -1,5 +1,6 @@
 package com.cts.sample.model
 
+/* This is wrapper class around Live Data object to handle error message. */
 class DataRepoModel {
 
     var heroList: List<DataModel>? = null

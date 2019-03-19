@@ -9,10 +9,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
+/* This is Repository class designed to fetch data from network. */
 class DataRepository {
 
     private var heroList: MutableLiveData<DataRepoModel>? = MutableLiveData()
 
+    /* Retrofit object is injected using Dependency Injection. */
     @Inject
     lateinit var webService: API
 
@@ -20,6 +22,7 @@ class DataRepository {
         AppController.instance.getApplicationComponent()!!.inject(this)
     }
 
+    /* This function will fetch data from backend using Retrofit library and response is set to LiveData object. */
     fun getHeros(): MutableLiveData<DataRepoModel>? {
 
         val call =  webService.getHeros()

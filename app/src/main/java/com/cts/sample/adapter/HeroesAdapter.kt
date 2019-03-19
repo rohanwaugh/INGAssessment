@@ -12,6 +12,7 @@ import com.cts.sample.model.DataRepoModel
 import com.cts.sample.model.DataModel
 import kotlinx.android.synthetic.main.recyclerview_layout.view.*
 
+/* This is Adapter class for RecyclerView. */
 class HeroesAdapter(val mCtx: Context, var model: DataRepoModel?, val clickListener: (DataModel) -> Unit) : RecyclerView.Adapter<HeroesAdapter.HeroViewHolder>() {
 
     var heroList: List<DataModel>? = null

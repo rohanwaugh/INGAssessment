@@ -5,6 +5,7 @@ import com.cts.sample.viewmodel.HeroViewModel
 import dagger.Component
 import javax.inject.Singleton
 
+/* Component interface used by Dagger2 to generate code. */
 @Component(modules = [AppModule::class])
 @Singleton
 interface AppComponent {

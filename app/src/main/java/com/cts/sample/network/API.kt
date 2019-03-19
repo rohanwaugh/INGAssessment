@@ -4,6 +4,7 @@ import com.cts.sample.model.DataModel
 import retrofit2.Call
 import retrofit2.http.GET
 
+/* Retrofit Interface. */
 interface API {
 
     @GET("marvel")

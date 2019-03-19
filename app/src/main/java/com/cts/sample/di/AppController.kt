@@ -2,6 +2,7 @@ package com.cts.sample.di
 
 import android.app.Application
 
+/* Application class. */
 class AppController : Application() {
 
     var component: AppComponent? = null

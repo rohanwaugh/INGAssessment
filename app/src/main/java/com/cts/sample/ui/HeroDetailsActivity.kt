@@ -6,7 +6,7 @@ import com.cts.sample.R
 import com.cts.sample.model.DataModel
 import kotlinx.android.synthetic.main.heros_details.*
 
-
+/* Details Activity Class. */
 class HeroDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

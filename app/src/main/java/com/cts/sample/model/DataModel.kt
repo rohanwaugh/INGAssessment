@@ -2,7 +2,7 @@ package com.cts.sample.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-
+/* Data Model class. */
 @Parcelize
 data class DataModel(
     var name: String,
