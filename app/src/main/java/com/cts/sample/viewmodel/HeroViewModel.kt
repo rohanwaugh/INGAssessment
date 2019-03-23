@@ -1,46 +1,44 @@
 package com.cts.sample.viewmodel
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.*
 import android.databinding.ObservableBoolean
-import com.cts.sample.di.AppController
-import com.cts.sample.model.DataRepoModel
+import com.cts.sample.model.DataModel
 import com.cts.sample.network.DataRepository
-import javax.inject.Inject
+
 
 /* This is ViewModel class designed to manage UI data for MainActivity. */
-class HeroViewModel : ViewModel() {
+class HeroViewModel (val repository : DataRepository): ViewModel() {
 
-    val tag : String = HeroViewModel::class.java.simpleName
-
-    private lateinit var heroList: MutableLiveData<DataRepoModel>
+    var heroList: MutableLiveData<List<DataModel>>? = MutableLiveData()
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
 
-    /* Repository class object is injected using Dependency Injection. */
-    @Inject
-    lateinit var repository: DataRepository
-
-    /* This function gets data for RecyclerView using injected DataRepository class instance. */
     fun fetchHeros() {
         isLoading.set(true)
-        AppController.instance.getApplicationComponent()!!.inject(this)
-        setListObservable(repository.getHeros()!!)
-    }
-
-    /* This function sets LiveData object. */
-    private fun setListObservable(heroList: MutableLiveData<DataRepoModel>) {
-        this.heroList = heroList
-    }
-
-    /* This function will return LiveData object. */
-    fun getListObservable(): MutableLiveData<DataRepoModel>? {
-        return heroList
+        repository.getHeros(
+            success = {
+                heroList?.value = it
+                isLoading.set(false)
+                isError.set(false)
+            },
+            failure = {
+                isLoading.set(false)
+                heroList?.value =null
+                isError.set(true)
+            }
+        )
     }
 
     /* This function is listener function for SwipeRefreshLayout. */
     fun onRefresh() {
         fetchHeros()
+    }
+}
+
+class HeroViewModelFactory(private val dataRepository: DataRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return HeroViewModel(dataRepository) as T
     }
 }

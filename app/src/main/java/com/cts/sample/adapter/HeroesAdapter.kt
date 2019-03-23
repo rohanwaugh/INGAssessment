@@ -8,19 +8,13 @@ import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
 import com.cts.sample.R
-import com.cts.sample.model.DataRepoModel
 import com.cts.sample.model.DataModel
 import kotlinx.android.synthetic.main.recyclerview_layout.view.*
 
 /* This is Adapter class for RecyclerView. */
-class HeroesAdapter(val mCtx: Context, var model: DataRepoModel?, val clickListener: (DataModel) -> Unit) : RecyclerView.Adapter<HeroesAdapter.HeroViewHolder>() {
+class HeroesAdapter(val mCtx: Context, val clickListener: (DataModel) -> Unit) : RecyclerView.Adapter<HeroesAdapter.HeroViewHolder>() {
 
-    private var heroList: List<DataModel>? = null
-
-    init {
-        this.model = model
-        this.heroList = this.model!!.heroList
-    }
+    var heroList: List<DataModel>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder {
         val view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_layout, parent, false)
@@ -28,21 +22,25 @@ class HeroesAdapter(val mCtx: Context, var model: DataRepoModel?, val clickListe
     }
 
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
-        val hero = heroList!![position]
-        Glide.with(mCtx).load(hero.imageurl).into(holder.itemView.imageView)
-        (holder).bind(heroList!![position], clickListener)
+        val hero = heroList?.get(position)
+        Glide.with(mCtx).load(hero?.imageurl).into(holder.itemView.imageView)
+        (holder).bind(heroList?.get(position), clickListener)
 
     }
 
     override fun getItemCount(): Int {
-        return this.heroList!!.size
+         this.heroList?.let {
+            return it.size
+        }?:return 0
     }
 
     class HeroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(hero: DataModel, clickListener: (DataModel) -> Unit) {
-            itemView.textView.text = hero.name
-            itemView.setOnClickListener { clickListener(hero)}
+        fun bind(hero: DataModel?, clickListener: (DataModel) -> Unit) {
+            itemView.textView.text = hero?.name
+            itemView.setOnClickListener { hero?.let {
+                clickListener(hero)
+            }}
 
         }
     }

@@ -1,7 +1,11 @@
 package com.cts.sample.di
 
+import android.arch.lifecycle.ViewModelProviders
 import com.cts.sample.network.API
 import com.cts.sample.network.DataRepository
+import com.cts.sample.ui.MainActivity
+import com.cts.sample.viewmodel.HeroViewModel
+import com.cts.sample.viewmodel.HeroViewModelFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -10,7 +14,7 @@ import javax.inject.Singleton
 
 /* Module class which is designed to provide objects which can be injected. */
 @Module
-class AppModule {
+class AppModule(val mainActivity: MainActivity) {
 
     /* This method will provide Retrofit object which can be injected. */
     @Provides
@@ -38,7 +42,19 @@ class AppModule {
     /* This method will provide DataRepository object which can be injected. */
     @Provides
     @Singleton
-    fun repository(): DataRepository {
-        return DataRepository()
+    fun repository(webService:API): DataRepository {
+        return DataRepository(webService)
     }
+
+    @Provides
+    @Singleton
+    fun providesHeroViewModel(heroViewModelFactory: HeroViewModelFactory) : HeroViewModel {
+        return ViewModelProviders.of(mainActivity,heroViewModelFactory).get<HeroViewModel>(HeroViewModel::class.java)
+    }
+
+
+    @Provides
+    fun providesHeroViewModelFactory(dataRepository: DataRepository): HeroViewModelFactory =
+        HeroViewModelFactory(dataRepository)
+
 }
