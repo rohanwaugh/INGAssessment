@@ -10,7 +10,6 @@ data class DataModel(
     val team : String,
     val firstappearance : String,
     var createdby : String,
-    val publisher :String,
     val imageurl: String) : Parcelable
 
 
