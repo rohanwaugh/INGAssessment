@@ -1,7 +1,8 @@
 package com.cts.sample.di
 
 import android.arch.lifecycle.ViewModelProviders
-import com.cts.sample.network.API
+import android.util.Log
+import com.cts.sample.network.HeroApi
 import com.cts.sample.network.DataRepository
 import com.cts.sample.ui.MainActivity
 import com.cts.sample.viewmodel.HeroViewModel
@@ -19,31 +20,31 @@ class AppModule(val mainActivity: MainActivity) {
     /* This method will provide Retrofit object which can be injected. */
     @Provides
     @Singleton
-    fun webService(retrofit: Retrofit): API {
-        return retrofit.create<API>(API::class.java)
+    fun providesHeroApi(retrofit: Retrofit): HeroApi {
+        return retrofit.create<HeroApi>(HeroApi::class.java)
     }
 
     /* This method will provide GsonConverterFactory object which is internally required for Retrofit dependency. */
     @Provides
     @Singleton
-    fun retrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
+    fun providesRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(API.BASE_URL)
+            .baseUrl(HeroApi.BASE_URL)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
 
     @Provides
     @Singleton
-    fun gsonConverterFactory(): GsonConverterFactory {
+    fun providesGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
 
     /* This method will provide DataRepository object which can be injected. */
     @Provides
     @Singleton
-    fun repository(webService:API): DataRepository {
-        return DataRepository(webService)
+    fun providesRepository(heroApi:HeroApi): DataRepository {
+        return DataRepository(heroApi)
     }
 
     @Provides
