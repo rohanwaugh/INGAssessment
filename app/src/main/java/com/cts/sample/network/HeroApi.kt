@@ -5,12 +5,8 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 /* Retrofit Interface. */
-interface API {
+interface HeroApi {
 
     @GET("marvel")
     fun getHeros():Call<List<DataModel>>
-
-    companion object {
-        const val BASE_URL = "https://simplifiedcoding.net/demos/"
-    }
 }
