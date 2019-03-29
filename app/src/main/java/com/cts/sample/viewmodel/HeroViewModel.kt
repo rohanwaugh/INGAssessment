@@ -2,14 +2,17 @@ package com.cts.sample.viewmodel
 
 import android.arch.lifecycle.*
 import android.databinding.ObservableBoolean
-import com.cts.sample.model.DataModel
+import com.cts.sample.network.Data
 import com.cts.sample.network.DataRepository
+import com.cts.sample.network.State
+import com.cts.sample.util.Constants
 
 
 /* This is ViewModel class designed to manage UI data for MainActivity. */
-class HeroViewModel (val repository : DataRepository): ViewModel() {
+class HeroViewModel (private val repository : DataRepository): ViewModel() {
 
-    var heroList: MutableLiveData<List<DataModel>>? = MutableLiveData()
+    var heroList : MutableLiveData<Data> = MutableLiveData()
+    private var data: Data? = null
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
@@ -18,14 +21,13 @@ class HeroViewModel (val repository : DataRepository): ViewModel() {
         isLoading.set(true)
         repository.getHeros(
             success = {
-                heroList?.value = it
-                isLoading.set(false)
-                isError.set(false)
+                data = Data(State.SUCCESS,it,Constants.SUCCESS_MSG)
+                heroList.postValue(data)
             },
             failure = {
-                isLoading.set(false)
-                heroList?.value =null
-                isError.set(true)
+                data = Data(State.ERROR,null,Constants.ERROR_MSG)
+                heroList.postValue(data)
+
             }
         )
     }
@@ -36,8 +38,7 @@ class HeroViewModel (val repository : DataRepository): ViewModel() {
     }
 }
 
-class HeroViewModelFactory(private val dataRepository: DataRepository) :
-    ViewModelProvider.NewInstanceFactory() {
+class HeroViewModelFactory(private val dataRepository: DataRepository) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return HeroViewModel(dataRepository) as T
     }
