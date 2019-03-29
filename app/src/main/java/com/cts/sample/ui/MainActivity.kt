@@ -12,6 +12,7 @@ import com.cts.sample.databinding.ActivityMainBinding
 import com.cts.sample.di.AppModule
 import com.cts.sample.di.DaggerAppComponent
 import com.cts.sample.model.DataModel
+import com.cts.sample.network.State
 import com.cts.sample.viewmodel.HeroViewModel
 import javax.inject.Inject
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             it.adapter = heroAdapter
         }
         initBinding()
-        callApi()
+        callHeroApi()
 
     }
 
@@ -52,21 +53,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* This function calls ViewModel fetchHeros method to get the data for RecyclerView. */
-    fun callApi() {
+    fun callHeroApi() {
         heroViewModel.fetchHeros()
     }
 
     /* This function observe LiveData object and update the RecyclerView Adapter with the data. */
     private fun observeViewModel() {
-           heroViewModel.heroList?.observe(this, Observer {
-               it?.let {
-                   heroAdapter.heroList = it
-                   heroAdapter.notifyDataSetChanged()
-                   heroViewModel.isLoading.set(false)
-                   heroViewModel.isError.set(false)
-               }
 
-           })
+            heroViewModel.heroList.observe(this, Observer {
+                it?.let {
+                    when (it.state) {
+                        State.SUCCESS -> {
+                            heroAdapter.heroList = it.data
+                            heroAdapter.notifyDataSetChanged()
+                            heroViewModel.isLoading.set(false)
+                            heroViewModel.isError.set(false)
+                        }
+
+                        State.ERROR -> {
+                            heroViewModel.isLoading.set(false)
+                            heroViewModel.isError.set(true)
+                        }
+                    }
+                }
+            })
+
+
     }
 
     /* This function handles RecyclerView Item click and launch new activity with details. */
