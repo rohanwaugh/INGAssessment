@@ -5,6 +5,7 @@ import android.util.Log
 import com.cts.sample.network.HeroApi
 import com.cts.sample.network.DataRepository
 import com.cts.sample.ui.MainActivity
+import com.cts.sample.util.Constants
 import com.cts.sample.viewmodel.HeroViewModel
 import com.cts.sample.viewmodel.HeroViewModelFactory
 import dagger.Module
@@ -29,7 +30,7 @@ class AppModule(val mainActivity: MainActivity) {
     @Singleton
     fun providesRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(HeroApi.BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
