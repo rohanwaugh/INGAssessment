@@ -15,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/* This is Unit Test class for DataRepository.*/
 class DataRepositoryTest {
 
     @Mock

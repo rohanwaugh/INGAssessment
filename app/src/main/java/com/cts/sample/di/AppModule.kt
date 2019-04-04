@@ -1,7 +1,6 @@
 package com.cts.sample.di
 
 import android.arch.lifecycle.ViewModelProviders
-import android.util.Log
 import com.cts.sample.network.HeroApi
 import com.cts.sample.network.DataRepository
 import com.cts.sample.ui.MainActivity

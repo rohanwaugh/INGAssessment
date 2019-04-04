@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class])
 @Singleton
 interface AppComponent {
-    fun inject(dataRepository: DataRepository)
-    fun inject(cardsListViewModel: HeroViewModel)
+//    fun inject(dataRepository: DataRepository)
+//    fun inject(heroViewModel: HeroViewModel)
     fun inject(mainActivity: MainActivity)
 }

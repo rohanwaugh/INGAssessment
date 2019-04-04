@@ -15,7 +15,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-
+/* This is Unit Test class for ViewModel. */
 class HeroViewModelTest {
 
     @Mock
@@ -49,11 +49,10 @@ class HeroViewModelTest {
 
         heroViewModel.fetchHeros()
 
-        assertEquals(heroViewModel.heroList.value?.data?.isNotEmpty(),true)
-        assertEquals(heroViewModel.heroList.value?.state, State.SUCCESS)
-        assertEquals(heroViewModel.heroList.value?.message, Constants.SUCCESS_MSG)
-
-        assertEquals(2,heroViewModel.heroList.value?.data?.size)
+        assertEquals(true,heroViewModel.getHeroList().value?.data?.isNotEmpty())
+        assertEquals(State.SUCCESS, heroViewModel.getHeroList().value?.state)
+        assertEquals(Constants.SUCCESS_MSG, heroViewModel.getHeroList().value?.message)
+        assertEquals(2,heroViewModel.getHeroList().value?.data?.size)
 
     }
 
@@ -70,10 +69,9 @@ class HeroViewModelTest {
 
         heroViewModel.fetchHeros()
 
-        assertEquals(heroViewModel.heroList.value?.data, null)
-        assertEquals(heroViewModel.heroList.value?.state , State.ERROR)
-        assertEquals(heroViewModel.heroList.value?.message , Constants.ERROR_MSG)
-
+        assertEquals(null, heroViewModel.getHeroList().value?.data)
+        assertEquals(State.ERROR , heroViewModel.getHeroList().value?.state)
+        assertEquals(Constants.ERROR_MSG , heroViewModel.getHeroList().value?.message)
 
     }
 

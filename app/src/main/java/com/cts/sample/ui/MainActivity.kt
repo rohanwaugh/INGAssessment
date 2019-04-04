@@ -19,7 +19,7 @@ import javax.inject.Inject
 /* Main Activity class */
 class MainActivity : AppCompatActivity() {
 
-    lateinit var heroAdapter: HeroesAdapter
+    private lateinit var heroAdapter: HeroesAdapter
     private lateinit var binding: ActivityMainBinding
 
     @Inject
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     /* This function observe LiveData object and update the RecyclerView Adapter with the data. */
     private fun observeViewModel() {
 
-            heroViewModel.heroList.observe(this, Observer {
+            heroViewModel.getHeroList().observe(this, Observer {
                 it?.let {
                     when (it.state) {
                         State.SUCCESS -> {
@@ -77,14 +77,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             })
-
-
     }
 
     /* This function handles RecyclerView Item click and launch new activity with details. */
-    private fun recyclerviewItemClicked(hero : DataModel) {
+    private fun recyclerviewItemClicked(dataModel : DataModel) {
         val intent = Intent(this, HeroDetailsActivity::class.java)
-        intent.putExtra(getString(R.string.key_intent_data), hero)
+        intent.putExtra(getString(R.string.key_intent_data), dataModel)
         this.startActivity(intent)
     }
 }
