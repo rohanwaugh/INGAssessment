@@ -8,13 +8,13 @@ import android.view.ViewGroup
 
 import com.bumptech.glide.Glide
 import com.cts.sample.R
-import com.cts.sample.model.DataModel
+import com.cts.sample.model.MarvelHero
 import kotlinx.android.synthetic.main.recyclerview_layout.view.*
 
 /* This is Adapter class for RecyclerView. */
-class HeroesAdapter(val mCtx: Context, val clickListener: (DataModel) -> Unit) : RecyclerView.Adapter<HeroesAdapter.HeroViewHolder>() {
+class HeroesAdapter(val mCtx: Context, val clickListener: (MarvelHero) -> Unit) : RecyclerView.Adapter<HeroesAdapter.HeroViewHolder>() {
 
-    var heroList: List<DataModel>? = null
+    var heroList: List<MarvelHero>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder {
         val view = LayoutInflater.from(mCtx).inflate(R.layout.recyclerview_layout, parent, false)
@@ -36,7 +36,7 @@ class HeroesAdapter(val mCtx: Context, val clickListener: (DataModel) -> Unit) :
 
     class HeroViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(hero: DataModel?, clickListener: (DataModel) -> Unit) {
+        fun bind(hero: MarvelHero?, clickListener: (MarvelHero) -> Unit) {
             itemView.textView.text = hero?.name
             itemView.setOnClickListener { hero?.let {
                 clickListener(hero)

@@ -1,6 +1,6 @@
 package com.cts.sample
 
-import com.cts.sample.model.DataModel
+import com.cts.sample.model.MarvelHero
 import com.cts.sample.network.HeroApi
 import com.cts.sample.network.DataRepository
 import com.nhaarman.mockitokotlin2.any
@@ -22,7 +22,7 @@ class DataRepositoryTest {
     lateinit var heroApi: HeroApi
 
     @Mock
-    lateinit var heroList: Call<List<DataModel>>
+    lateinit var heroList: Call<List<MarvelHero>>
 
     lateinit var dataRepository: DataRepository
 
@@ -41,7 +41,7 @@ class DataRepositoryTest {
         whenever(heroList
             .enqueue(any()))
             .thenAnswer {
-                (it.arguments[0] as? Callback<List<DataModel>>)
+                (it.arguments[0] as? Callback<List<MarvelHero>>)
                     ?.onResponse(heroList, Response.success(getFakePreviewList()))
             }
 
@@ -53,9 +53,9 @@ class DataRepositoryTest {
 
 
 
-    fun getFakePreviewList():List<DataModel>{
-        return listOf(DataModel("Captain America","Steve Rogers", "Avengers", "1941",
-            "Joe Simon", "DummyURL"),DataModel("Wolvorine","James Howlett", "X-Men", "1974",
+    fun getFakePreviewList():List<MarvelHero>{
+        return listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
+            "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
             "Len Wein", "DummyURL1"))
     }
 

@@ -1,6 +1,6 @@
 package com.cts.sample.network
 
-import com.cts.sample.model.DataModel
+import com.cts.sample.model.MarvelHero
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface HeroApi {
 
     @GET("marvel")
-    fun getHeros():Call<List<DataModel>>
+    fun getHeros():Call<List<MarvelHero>>
 }

@@ -11,8 +11,8 @@ import com.cts.sample.adapter.HeroesAdapter
 import com.cts.sample.databinding.ActivityMainBinding
 import com.cts.sample.di.AppModule
 import com.cts.sample.di.DaggerAppComponent
-import com.cts.sample.model.DataModel
-import com.cts.sample.network.State
+import com.cts.sample.model.MarvelHero
+import com.cts.sample.network.Result
 import com.cts.sample.viewmodel.HeroViewModel
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerview.let {
             it.setHasFixedSize(true)
             it.layoutManager = LinearLayoutManager(this)
-            heroAdapter =  HeroesAdapter(this@MainActivity) { hero : DataModel -> recyclerviewItemClicked(hero) }
+            heroAdapter =  HeroesAdapter(this@MainActivity) { hero : MarvelHero -> recyclerviewItemClicked(hero) }
             it.adapter = heroAdapter
         }
         initBinding()
@@ -62,15 +62,15 @@ class MainActivity : AppCompatActivity() {
 
             heroViewModel.getHeroList().observe(this, Observer {
                 it?.let {
-                    when (it.state) {
-                        State.SUCCESS -> {
+                    when (it) {
+                        is Result.SUCCESS -> {
                             heroAdapter.heroList = it.data
                             heroAdapter.notifyDataSetChanged()
                             heroViewModel.isLoading.set(false)
                             heroViewModel.isError.set(false)
                         }
 
-                        State.ERROR -> {
+                        is Result.ERROR -> {
                             heroViewModel.isLoading.set(false)
                             heroViewModel.isError.set(true)
                         }
@@ -80,9 +80,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* This function handles RecyclerView Item click and launch new activity with details. */
-    private fun recyclerviewItemClicked(dataModel : DataModel) {
+    private fun recyclerviewItemClicked(marvelHero: MarvelHero) {
         val intent = Intent(this, HeroDetailsActivity::class.java)
-        intent.putExtra(getString(R.string.key_intent_data), dataModel)
+        intent.putExtra(getString(R.string.key_intent_data), marvelHero)
         this.startActivity(intent)
     }
 }

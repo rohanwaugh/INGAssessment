@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 /* Data Model class. */
 @Parcelize
-data class DataModel(
+data class MarvelHero(
     var name: String,
     var realname :String,
     val team : String,

@@ -2,9 +2,9 @@ package com.cts.sample.viewmodel
 
 import android.arch.lifecycle.*
 import android.databinding.ObservableBoolean
-import com.cts.sample.network.Data
+//import com.cts.sample.network.Data
 import com.cts.sample.network.DataRepository
-import com.cts.sample.network.State
+import com.cts.sample.network.Result
 import com.cts.sample.util.Constants
 
 
@@ -12,9 +12,10 @@ import com.cts.sample.util.Constants
 class HeroViewModel (private val repository : DataRepository): ViewModel() {
 
     // MutableLiveData is private propert and hence not exposed to outside world.
-    private var heroList : MutableLiveData<Data> = MutableLiveData()
+//    private var heroList : MutableLiveData<Data> = MutableLiveData()
 
-    private var data: Data? = null
+    private var heroList : MutableLiveData<Result> = MutableLiveData()
+ //   private var data: Data? = null
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
@@ -25,19 +26,22 @@ class HeroViewModel (private val repository : DataRepository): ViewModel() {
         isLoading.set(true)
         repository.getHeros(
             success = {
-                data = Data(State.SUCCESS,it,Constants.SUCCESS_MSG)
-                heroList.postValue(data)
+               // data = Data(Result.SUCCESS,it,Constants.SUCCESS_MSG)
+               // heroList.postValue(data)
+
+                heroList.postValue(Result.SUCCESS(it))
             },
             failure = {
-                data = Data(State.ERROR,null,it)
-                heroList.postValue(data)
+                //data = Data(Result.ERROR,null,it)
+                //heroList.postValue(data)
+                heroList.postValue(Result.ERROR(Constants.ERROR_MSG))
 
             }
         )
     }
 
     /* This function exposes heroList as LiveData object to MainActivity. */
-    fun getHeroList(): LiveData<Data> = heroList
+    fun getHeroList(): LiveData<Result> = heroList
 
 
     /* This function is listener function for SwipeRefreshLayout. */
