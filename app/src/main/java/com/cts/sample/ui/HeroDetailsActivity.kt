@@ -6,7 +6,7 @@ import com.cts.sample.R
 import com.cts.sample.model.MarvelHero
 import kotlinx.android.synthetic.main.heros_details.*
 
-/* Details Activity Class. */
+/* This class will display selected Hero's details . */
 class HeroDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

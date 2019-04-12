@@ -11,29 +11,24 @@ import com.cts.sample.util.Constants
 /* This is ViewModel class designed to manage UI data for MainActivity. */
 class HeroViewModel (private val repository : DataRepository): ViewModel() {
 
-    // MutableLiveData is private propert and hence not exposed to outside world.
-//    private var heroList : MutableLiveData<Data> = MutableLiveData()
-
+    // heroList is a private variable of type of MutableLiveData hence not exposed to MainActivity.
     private var heroList : MutableLiveData<Result> = MutableLiveData()
- //   private var data: Data? = null
 
     val isLoading = ObservableBoolean()
     val isError = ObservableBoolean()
 
-
-    /* This function will call getHeros method of DataRepository class. */
+    /*
+     * This function  uses DataRepository class object to fetch the data from Network.
+     * Data returned from repository is set to LiveData inside success and failure lambda.
+     *
+     * */
     fun fetchHeros() {
         isLoading.set(true)
         repository.getHeros(
             success = {
-               // data = Data(Result.SUCCESS,it,Constants.SUCCESS_MSG)
-               // heroList.postValue(data)
-
-                heroList.postValue(Result.SUCCESS(it))
+                heroList.postValue(Result.SUCCESS(it,Constants.SUCCESS_MSG))
             },
             failure = {
-                //data = Data(Result.ERROR,null,it)
-                //heroList.postValue(data)
                 heroList.postValue(Result.ERROR(Constants.ERROR_MSG))
 
             }

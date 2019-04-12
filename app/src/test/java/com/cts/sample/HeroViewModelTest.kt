@@ -18,6 +18,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import java.lang.Error
 
 /* This is Unit Test class for ViewModel. */
 class HeroViewModelTest {
@@ -40,8 +41,55 @@ class HeroViewModelTest {
         heroViewModel = HeroViewModel(dataRepository)
     }
 
+//    @Test
+//    fun testFetchHerosSuccess(){
+//
+//        val dummyData = listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
+//            "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
+//            "Len Wein", "DummyURL1"))
+//
+//        whenever(dataRepository.getHeros(any(),any()))
+//            .thenAnswer {
+//                (it.arguments[0] as ((List<MarvelHero?>?) -> Unit)?)
+//                    ?.invoke(dummyData)
+//
+//            }
+//
+//        heroViewModel.fetchHeros()
+//
+//
+//        assertNotNull(heroViewModel.getHeroList().value)
+////        assertEquals(true,heroViewModel.getHeroList().value?.isNotEmpty())
+////        assertEquals(State.SUCCESS, heroViewModel.getHeroList().value?.state)
+////        assertEquals(Constants.SUCCESS_MSG, heroViewModel.getHeroList().value?.message)
+////        assertEquals(2,heroViewModel.getHeroList().value?.data?.size)
+//
+//    }
+
+//    @Test
+//    fun testFetchHerosError()
+//    {
+//
+//        whenever(dataRepository
+//            .getHeros(any(), any()))
+//            .thenAnswer {
+//                (it.arguments[1] as (((String) -> Unit)?))
+//                    ?.invoke(Constants.ERROR_MSG)
+//            }
+//
+//        heroViewModel.fetchHeros()
+//        assertEquals(Result.ERROR(Constants.ERROR_MSG),heroViewModel.getHeroList().value)
+//
+// //       assertEquals(null, heroViewModel.getHeroList().value?.data)
+// //       assertEquals(State.ERROR , heroViewModel.getHeroList().value)
+////        assertEquals(Constants.ERROR_MSG , heroViewModel.getHeroList().value?.message)
+//
+//    }
+
+
+    /* This function will test if HeroViewModel's liveData object is getting updated/ changed or not. */
     @Test
-    fun testFetchHerosSuccess(){
+    fun fetchHerosTriggersLiveData(){
 
         val dummyData = listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
             "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
@@ -54,56 +102,14 @@ class HeroViewModelTest {
 
             }
 
-        heroViewModel.fetchHeros()
-
-        assertNotNull(heroViewModel.getHeroList().value)
-//        assertEquals(true,heroViewModel.getHeroList().value?.isNotEmpty())
-//        assertEquals(State.SUCCESS, heroViewModel.getHeroList().value?.state)
-//        assertEquals(Constants.SUCCESS_MSG, heroViewModel.getHeroList().value?.message)
-//        assertEquals(2,heroViewModel.getHeroList().value?.data?.size)
-
-    }
-
-    @Test
-    fun testFetchHerosError()
-    {
-
-        whenever(dataRepository
-            .getHeros(any(), any()))
-            .thenAnswer {
-                (it.arguments[1] as (((String) -> Unit)?))
-                    ?.invoke(Constants.ERROR_MSG)
-            }
-
-        heroViewModel.fetchHeros()
-//        assertEquals(Constants.ERROR_MSG,heroViewModel.getHeroList().value)
-
-//        assertEquals(null, heroViewModel.getHeroList().value?.data)
-//        assertEquals(State.ERROR , heroViewModel.getHeroList().value?.state)
-//        assertEquals(Constants.ERROR_MSG , heroViewModel.getHeroList().value?.message)
-
-    }
-
-
-    @Test
-    fun test(){
-
-        val dummyData = listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
-            "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
-            "Len Wein", "DummyURL1"))
-
-        whenever(dataRepository.getHeros(any(),any()))
-            .thenAnswer {
-                (it.arguments[0] as ((List<MarvelHero?>?) -> Unit)?)
-                    ?.invoke(dummyData)
-
-            }
 
         heroViewModel.getHeroList().observeForever(observer)
         heroViewModel.fetchHeros()
 
        //verify(observer).onChanged(Result.ERROR(Constants.ERROR_MSG))
-       verify(observer).onChanged(Result.SUCCESS(dummyData))
+       verify(observer).onChanged(Result.SUCCESS(dummyData,Constants.SUCCESS_MSG))
+       // assertEquals(Result.ERROR(Constants.ERROR_MSG), heroViewModel.getHeroList().value)
+        assertEquals(Result.SUCCESS(dummyData,Constants.SUCCESS_MSG), heroViewModel.getHeroList().value)
     }
 
 

@@ -7,8 +7,9 @@ sealed class Result {
 
 //    object SUCCESS : Result()
 //    object ERROR   : Result()
-    class SUCCESS(val data: List<MarvelHero>?) : Result()
-    class ERROR(val message:String)   : Result()
+    //class SUCCESS(val data: List<MarvelHero>?) : Result()
+    data class ERROR(val status:String)   : Result()
+    data class SUCCESS(val data: List<MarvelHero>?, val status: String) : Result()
 
 //    data class Success<out T>(val data: T) : Result<T>()
 //    data class ERROR<out T>(val message:T) : Result<T>()

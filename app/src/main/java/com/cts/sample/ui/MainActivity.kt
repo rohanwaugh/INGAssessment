@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         heroViewModel.fetchHeros()
     }
 
-    /* This function observe LiveData object and update the RecyclerView Adapter with the data. */
+    /* This function observe HeroViewModel's LiveData object and update the RecyclerView Adapter(UI) with the data. */
     private fun observeViewModel() {
 
             heroViewModel.getHeroList().observe(this, Observer {

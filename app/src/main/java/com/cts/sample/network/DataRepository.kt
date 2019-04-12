@@ -9,7 +9,9 @@ import retrofit2.Response
 /* This is Repository class designed to fetch data from network. */
 class DataRepository(private val heroApi: HeroApi) {
 
-    /* This function will fetch the data from network using Retrofit and set it to ViewModel LiveData using Lambda expression. */
+    /* This function will fetch the data from network using Retrofit and set the data to HeroViewModel's LiveData
+       object using Lambda expression.
+    */
     fun getHeros(success: ((List<MarvelHero>?) -> Unit)?, failure: ((String) -> Unit)?){
 
         val heroApi =  heroApi.getHeros()
