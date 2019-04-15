@@ -2,7 +2,7 @@ package com.cts.sample
 
 import com.cts.sample.model.MarvelHero
 import com.cts.sample.network.HeroApi
-import com.cts.sample.network.DataRepository
+import com.cts.sample.network.HeroRepository
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
@@ -15,8 +15,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/* This is Unit Test class for DataRepository.*/
-class DataRepositoryTest {
+/* This is Unit Test class for HeroRepository.*/
+class HeroRepositoryTest {
 
     @Mock
     lateinit var heroApi: HeroApi
@@ -24,12 +24,12 @@ class DataRepositoryTest {
     @Mock
     lateinit var heroList: Call<List<MarvelHero>>
 
-    lateinit var dataRepository: DataRepository
+    lateinit var heroRepository: HeroRepository
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        dataRepository = DataRepository(heroApi)
+        heroRepository = HeroRepository(heroApi)
     }
 
     @Test
@@ -45,7 +45,7 @@ class DataRepositoryTest {
                     ?.onResponse(heroList, Response.success(getFakePreviewList()))
             }
 
-        dataRepository.getHeros({
+        heroRepository.getHeros({
             assertTrue(it?.size==2)
             assertEquals(it?.get(0)?.name,"Captain America")
         },{})

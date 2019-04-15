@@ -7,7 +7,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /* This is Repository class designed to fetch data from network. */
-class DataRepository(private val heroApi: HeroApi) {
+class HeroRepository(private val heroApi: HeroApi) {
 
     /* This function will fetch the data from network using Retrofit and set the data to HeroViewModel's LiveData
        object using Lambda expression.

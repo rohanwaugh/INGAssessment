@@ -3,13 +3,13 @@ package com.cts.sample.viewmodel
 import android.arch.lifecycle.*
 import android.databinding.ObservableBoolean
 //import com.cts.sample.network.Data
-import com.cts.sample.network.DataRepository
+import com.cts.sample.network.HeroRepository
 import com.cts.sample.network.Result
 import com.cts.sample.util.Constants
 
 
 /* This is ViewModel class designed to manage UI data for MainActivity. */
-class HeroViewModel (private val repository : DataRepository): ViewModel() {
+class HeroViewModel (private val repository : HeroRepository): ViewModel() {
 
     // heroList is a private variable of type of MutableLiveData hence not exposed to MainActivity.
     private var heroList : MutableLiveData<Result> = MutableLiveData()
@@ -18,7 +18,7 @@ class HeroViewModel (private val repository : DataRepository): ViewModel() {
     val isError = ObservableBoolean()
 
     /*
-     * This function  uses DataRepository class object to fetch the data from Network.
+     * This function  uses HeroRepository class object to fetch the data from Network.
      * Data returned from repository is set to LiveData inside success and failure lambda.
      *
      * */
@@ -46,8 +46,8 @@ class HeroViewModel (private val repository : DataRepository): ViewModel() {
 }
 
 /* This is ViewModel Factory class. */
-class HeroViewModelFactory(private val dataRepository: DataRepository) : ViewModelProvider.NewInstanceFactory() {
+class HeroViewModelFactory(private val heroRepository: HeroRepository) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HeroViewModel(dataRepository) as T
+        return HeroViewModel(heroRepository) as T
     }
 }

@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             .inject(this)
 
 
+        /* Binding object creation. */
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.recyclerview.let {
             it.setHasFixedSize(true)

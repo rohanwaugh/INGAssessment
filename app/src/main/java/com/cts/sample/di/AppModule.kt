@@ -2,7 +2,7 @@ package com.cts.sample.di
 
 import android.arch.lifecycle.ViewModelProviders
 import com.cts.sample.network.HeroApi
-import com.cts.sample.network.DataRepository
+import com.cts.sample.network.HeroRepository
 import com.cts.sample.ui.MainActivity
 import com.cts.sample.util.Constants
 import com.cts.sample.viewmodel.HeroViewModel
@@ -40,11 +40,11 @@ class AppModule(val mainActivity: MainActivity) {
         return GsonConverterFactory.create()
     }
 
-    /* This method will provide DataRepository object which can be injected. */
+    /* This method will provide HeroRepository object which can be injected. */
     @Provides
     @Singleton
-    fun providesRepository(heroApi:HeroApi): DataRepository {
-        return DataRepository(heroApi)
+    fun providesRepository(heroApi:HeroApi): HeroRepository {
+        return HeroRepository(heroApi)
     }
 
     @Provides
@@ -55,7 +55,7 @@ class AppModule(val mainActivity: MainActivity) {
 
 
     @Provides
-    fun providesHeroViewModelFactory(dataRepository: DataRepository): HeroViewModelFactory =
-        HeroViewModelFactory(dataRepository)
+    fun providesHeroViewModelFactory(heroRepository: HeroRepository): HeroViewModelFactory =
+        HeroViewModelFactory(heroRepository)
 
 }
