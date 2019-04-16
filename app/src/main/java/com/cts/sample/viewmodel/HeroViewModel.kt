@@ -2,7 +2,6 @@ package com.cts.sample.viewmodel
 
 import android.arch.lifecycle.*
 import android.databinding.ObservableBoolean
-//import com.cts.sample.network.Data
 import com.cts.sample.network.HeroRepository
 import com.cts.sample.network.Result
 import com.cts.sample.util.Constants
