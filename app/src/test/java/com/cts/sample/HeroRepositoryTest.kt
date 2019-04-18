@@ -24,7 +24,7 @@ class HeroRepositoryTest {
     @Mock
     lateinit var heroList: Call<List<MarvelHero>>
 
-    lateinit var heroRepository: HeroRepository
+    private lateinit var heroRepository: HeroRepository
 
     @Before
     fun setUp() {
@@ -42,18 +42,18 @@ class HeroRepositoryTest {
             .enqueue(any()))
             .thenAnswer {
                 (it.arguments[0] as? Callback<List<MarvelHero>>)
-                    ?.onResponse(heroList, Response.success(getFakePreviewList()))
+                    ?.onResponse(heroList, Response.success(getDummyData()))
             }
 
-        heroRepository.getHeros({
-            assertTrue(it?.size==2)
-            assertEquals(it?.get(0)?.name,"Captain America")
+        heroRepository.getHeros({list->
+            assertTrue(list?.size==2)
+            assertEquals(list?.get(0)?.name,"Captain America")
         },{})
     }
 
 
 
-    fun getFakePreviewList():List<MarvelHero>{
+    private fun getDummyData():List<MarvelHero>{
         return listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
             "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
             "Len Wein", "DummyURL1"))

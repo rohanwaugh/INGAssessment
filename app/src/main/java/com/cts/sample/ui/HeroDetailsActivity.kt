@@ -18,7 +18,7 @@ class HeroDetailsActivity : AppCompatActivity() {
         bundle?.getParcelable<MarvelHero>("hero")?.apply {
             heroRealName.text = this.realname
             heroTeam.text = this.team
-            firstAppreance.text = this.firstappearance
+            firstAppearance.text = this.firstappearance
             createdBy.text = this.createdby
         }
 

@@ -5,11 +5,11 @@ import kotlinx.android.parcel.Parcelize
 /* Data Model class. */
 @Parcelize
 data class MarvelHero(
-    var name: String,
-    var realname :String,
+    val name: String,
+    val realname :String,
     val team : String,
     val firstappearance : String,
-    var createdby : String,
+    val createdby : String,
     val imageurl: String) : Parcelable
 
 

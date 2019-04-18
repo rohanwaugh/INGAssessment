@@ -22,13 +22,13 @@
                 tools:context=".ui.MainActivity">
 
             <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerview"
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="@{viewModel.isError ? View.GONE : View.VISIBLE}"/>
 
             <TextView
-                    android:id="@+id/tv_no_data"
+                    android:id="@+id/tvNoData"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/no_data_tv_top_margin"

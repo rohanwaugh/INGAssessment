@@ -36,11 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         /* Binding object creation. */
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.recyclerview.let {
-            it.setHasFixedSize(true)
-            it.layoutManager = LinearLayoutManager(this)
-            heroAdapter =  HeroesAdapter(this@MainActivity) { hero : MarvelHero -> recyclerviewItemClicked(hero) }
-            it.adapter = heroAdapter
+        binding.recyclerView.let {recyclerView->
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            heroAdapter =  HeroesAdapter(this@MainActivity) { hero : MarvelHero -> recyclerViewItemClicked(hero) }
+            recyclerView.adapter = heroAdapter
         }
         initBinding()
         callHeroApi()
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /* This function calls ViewModel fetchHeros method to get the data for RecyclerView. */
-    fun callHeroApi() {
+    private fun callHeroApi() {
         heroViewModel.fetchHeros()
     }
 
@@ -62,10 +62,10 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
 
             heroViewModel.getHeroList().observe(this, Observer {
-                it?.let {
-                    when (it) {
+                it?.let {result->
+                    when (result) {
                         is Result.SUCCESS -> {
-                            heroAdapter.heroList = it.data
+                            heroAdapter.heroList = result.data
                             heroAdapter.notifyDataSetChanged()
                             heroViewModel.isLoading.set(false)
                             heroViewModel.isError.set(false)
@@ -76,12 +76,13 @@ class MainActivity : AppCompatActivity() {
                             heroViewModel.isError.set(true)
                         }
                     }
+
                 }
             })
     }
 
     /* This function handles RecyclerView Item click and launch new activity with details. */
-    private fun recyclerviewItemClicked(marvelHero: MarvelHero) {
+    private fun recyclerViewItemClicked(marvelHero: MarvelHero) {
         val intent = Intent(this, HeroDetailsActivity::class.java)
         intent.putExtra(getString(R.string.key_intent_data), marvelHero)
         this.startActivity(intent)

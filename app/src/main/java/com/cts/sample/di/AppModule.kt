@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 /* Module class which is designed to provide objects which can be injected. */
 @Module
-class AppModule(val mainActivity: MainActivity) {
+class AppModule(private val mainActivity: MainActivity) {
 
     /* This method will provide Retrofit object which can be injected. */
     @Provides
@@ -55,6 +55,7 @@ class AppModule(val mainActivity: MainActivity) {
 
 
     @Provides
+    @Singleton
     fun providesHeroViewModelFactory(heroRepository: HeroRepository): HeroViewModelFactory =
         HeroViewModelFactory(heroRepository)
 

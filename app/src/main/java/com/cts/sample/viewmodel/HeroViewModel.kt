@@ -24,8 +24,8 @@ class HeroViewModel (private val repository : HeroRepository): ViewModel() {
     fun fetchHeros() {
         isLoading.set(true)
         repository.getHeros(
-            success = {
-                heroList.postValue(Result.SUCCESS(it,Constants.SUCCESS_MSG))
+            success = {list->
+                heroList.postValue(Result.SUCCESS(list,Constants.SUCCESS_MSG))
             },
             failure = {
                 heroList.postValue(Result.ERROR(Constants.ERROR_MSG))

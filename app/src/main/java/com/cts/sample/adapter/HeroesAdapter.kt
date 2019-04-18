@@ -44,7 +44,7 @@ class HeroesAdapter(private val mCtx: Context, private val clickListener: (Marve
 
         fun bind(hero: MarvelHero?, clickListener: (MarvelHero) -> Unit) {
             itemView.textView.text = hero?.name
-            itemView.setOnClickListener { hero?.let {
+            itemView.setOnClickListener { hero?.let { hero->
                 clickListener(hero)
             }}
 

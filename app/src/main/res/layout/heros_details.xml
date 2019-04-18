@@ -27,7 +27,7 @@
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-            android:id="@+id/firstAppreance"
+            android:id="@+id/firstAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:layout_marginTop="@dimen/details_tv_top_margin"
             android:textSize="@dimen/details_tv_text_size"
-            app:layout_constraintTop_toBottomOf="@+id/firstAppreance"
+            app:layout_constraintTop_toBottomOf="@+id/firstAppearance"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

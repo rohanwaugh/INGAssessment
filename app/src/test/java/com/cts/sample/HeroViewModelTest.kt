@@ -23,7 +23,7 @@ class HeroViewModelTest {
     @Mock
     lateinit var heroRepository: HeroRepository
 
-    lateinit var heroViewModel: HeroViewModel
+    private lateinit var heroViewModel: HeroViewModel
 
     @Mock
     lateinit var observer: Observer<Result>
@@ -40,7 +40,7 @@ class HeroViewModelTest {
 
     /* This function will test if HeroViewModel's liveData object is getting updated/ changed or not. */
     @Test
-    fun fetchHerosTriggersLiveData(){
+    fun testIfFetchHerosTriggersLiveData(){
 
         val dummyData = listOf(MarvelHero("Captain America","Steve Rogers", "Avengers", "1941",
             "Joe Simon", "DummyURL"),MarvelHero("Wolvorine","James Howlett", "X-Men", "1974",
