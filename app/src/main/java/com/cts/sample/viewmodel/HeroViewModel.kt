@@ -27,8 +27,8 @@ class HeroViewModel (private val repository : HeroRepository): ViewModel() {
             success = {list->
                 heroList.postValue(Result.SUCCESS(list,Constants.SUCCESS_MSG))
             },
-            failure = {
-                heroList.postValue(Result.ERROR(Constants.ERROR_MSG))
+            failure = {error_message->
+                heroList.postValue(Result.ERROR(error_message))
 
             }
         )
@@ -45,6 +45,7 @@ class HeroViewModel (private val repository : HeroRepository): ViewModel() {
 }
 
 /* This is ViewModel Factory class. */
+@Suppress("UNCHECKED_CAST")
 class HeroViewModelFactory(private val heroRepository: HeroRepository) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return HeroViewModel(heroRepository) as T

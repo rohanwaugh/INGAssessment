@@ -10,6 +10,7 @@ import com.cts.sample.viewmodel.HeroViewModel
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -53,10 +54,10 @@ class HeroViewModelTest {
 
             }
 
-
         heroViewModel.getHeroList().observeForever(observer)
         heroViewModel.fetchHeros()
 
+        assertNotNull(heroViewModel.getHeroList().value)
        //verify(observer).onChanged(Result.ERROR(Constants.ERROR_MSG))
        verify(observer).onChanged(Result.SUCCESS(dummyData,Constants.SUCCESS_MSG))
        // assertEquals(Result.ERROR(Constants.ERROR_MSG), heroViewModel.getHeroList().value)

@@ -24,7 +24,7 @@ class HeroesAdapter(private val mCtx: Context, private val clickListener: (Marve
     }
 
 
-    /* This function binds data to child views of HeroViewHolder class. */
+    /* This function binds data to HeroViewHolder class. */
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
         val hero = heroList?.get(position)
         Glide.with(mCtx).load(hero?.imageurl).into(holder.itemView.imageView)
